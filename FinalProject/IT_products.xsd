@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<!--=====Simple Elements Declaration=====-->
+	<xs:element name="Name" type="xs:ID" />
+	<xs:element name="Model" type="xs:string" />
+	<xs:element name="Price">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:fractionDigits fixed="true" value="2" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Weight" type="xs:decimal" />
+	<xs:element name="MemorySize" type="xs:positiveInteger" />
+	<xs:element name="HardDisk" type="xs:positiveInteger" />
+	<xs:element name="NumUSBPorts" type="xs:positiveInteger" />
+	<xs:element name="DiagonalSize">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:fractionDigits fixed="true" value="1" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="AspectRatio">
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:pattern value="[1-9][0-9]*:[1-9][0-9]*" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Buttons" type="xs:positiveInteger" />
+	<xs:element name="MovementResolusion" type="xs:positiveInteger" />
+
+	<!-- *************** Attributes ************** -->
+	<xs:simpleType name="Region_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Asia" />
+			<xs:enumeration value="America" />
+			<xs:enumeration value="Europe" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="makerId_type">
+		<xs:restriction base="xs:ID">
+			<xs:pattern value="maker[1-9][0-9]*" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="Category_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="laptop" />
+			<xs:enumeration value="computer" />
+			<xs:enumeration value="monitor" />
+			<xs:enumeration value="mouse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="productId_type">
+		<xs:restriction base="xs:ID">
+			<xs:pattern value="l[1-9][0-9]*|c[1-9][0-9]*|m[1-9][0-9]*|mo[1-9][0-9]*" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="makerIdRef_type">
+		<xs:restriction base="xs:IDREF">
+			<xs:pattern value="maker[1-9][0-9]*" />
+		</xs:restriction>
+	</xs:simpleType>
+	<!--=======Complex Elements=============-->
+	<xs:element name="Maker">
+		<xs:key name="makerKey">
+			<xs:selector xpath="Catalog/Makers/Maker" />
+			<xs:field xpath="Name" />
+			<xs:field xpath="@makerId" />
+		</xs:key>
+	</xs:element>
+	<xs:complexType name="Maker">
+		<xs:sequence>
+			<xs:element ref="Name" />
+		</xs:sequence>
+		<xs:attribute name="Region" type="Region_type" use="required" />
+		<xs:attribute name="makerId" type="makerId_type" use="required" />
+	</xs:complexType>
+	<xs:element name="Product">
+		<xs:keyref name="makerRef" refer="makerKey">
+			<xs:selector xpath="Catalog/ITProducts/Product/Maker" />
+			<xs:field xpath="@nameRef" />
+			<xs:field xpath="@idRef" />
+		</xs:keyref>
+	</xs:element>
+	<xs:complexType name="Product">
+		<xs:sequence>
+			<xs:element name="Maker" minOccurs="1" maxOccurs="1">
+				<xs:complexType>
+					<xs:attribute name="nameRef" type="xs:IDREF" use="required" />
+					<xs:attribute name="idRef" type="makerIdRef_type" use="required" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element ref="Model" minOccurs="1" maxOccurs="1" />
+			<xs:element ref="Price" minOccurs="1" maxOccurs="1" />
+			<xs:element ref="Weight" minOccurs="0" maxOccurs="1" />
+			<xs:element ref="MemorySize" minOccurs="0" maxOccurs="1" />
+			<xs:element ref="HardDisk" minOccurs="0" maxOccurs="1" />
+			<xs:element ref="NumUSBPorts" minOccurs="0" maxOccurs="1" />
+			<xs:element ref="DiagonalSize" minOccurs="0" maxOccurs="1" />
+			<xs:element ref="AspectRatio" minOccurs="0" maxOccurs="1" />
+			<xs:element ref="Buttons" minOccurs="0" maxOccurs="1" />
+			<xs:element ref="MovementResolusion" minOccurs="0" maxOccurs="1" />
+			<xs:element name="image" minOccurs="1" maxOccurs="1">
+				<xs:complexType>
+					<xs:attribute name="href" type="xs:ENTITY" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Category" type="Category_type" use="required" />
+		<xs:attribute name="productId" type="productId_type" use="required" />
+	</xs:complexType>
+	<xs:element name="Makers">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Maker" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ITProducts">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Product" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Catalog">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Makers" />
+				<xs:element ref="ITProducts" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema> 
+	

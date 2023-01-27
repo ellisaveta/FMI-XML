@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet type="text/xsl" href="IT_products.xsl"?>
+<!DOCTYPE Catalog [
+	<!NOTATION jpg SYSTEM "image/jpg">
+	<!ENTITY l1 SYSTEM "images/l1.jpg" NDATA jpg>
+	<!ENTITY l2 SYSTEM "images/l2.jpg" NDATA jpg>
+	<!ENTITY l3 SYSTEM "images/l3.jpg" NDATA jpg>
+	<!ENTITY c1 SYSTEM "images/c1.jpg" NDATA jpg>
+	<!ENTITY c2 SYSTEM "images/c2.jpg" NDATA jpg>
+	<!ENTITY m1 SYSTEM "images/m1.jpg" NDATA jpg>
+	<!ENTITY m2 SYSTEM "images/m2.jpg" NDATA jpg>
+	<!ENTITY mo1 SYSTEM "images/mo1.jpg" NDATA jpg>
+	<!--<!ATTLIST image href ENTITY #IMPLIED>-->
+]>
+
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="IT_products.xsd">
+	<!--==========MAKERS=========-->
+	<Makers>
+		<Maker Region="Asia" makerId="maker1">
+			<Name>Asus</Name>
+		</Maker>
+		<Maker Region="America" makerId="maker2">
+			<Name>Dell</Name>
+		</Maker>
+		<Maker Region="Asia" makerId="maker3">
+			<Name>Lenovo</Name>
+		</Maker>
+		<Maker Region="America" makerId="maker4">
+			<Name>Apple</Name>
+		</Maker>
+		<Maker Region="Asia" makerId="maker5">
+			<Name>Acer</Name>
+		</Maker>
+	</Makers>
+	<!--=========PRODUCTS========-->
+	<ITProducts>
+		<Product Category="laptop" productId="l1">
+			<Maker nameRef="Asus" idRef="maker1" />
+			<Model>C223NA-GJ0055</Model>
+			<Price>534.08</Price> <!--lv.-->
+			<Weight>1</Weight> <!--kg-->
+			<MemorySize>
+			4</MemorySize> <!--GB-->
+			<image href="l1" />
+		</Product>
+		<Product Category="laptop" productId="l2">
+			<Maker nameRef="Dell" idRef="maker2" />
+			<Model>Vostro 3510</Model>
+			<Price>855.78</Price>
+			<Weight>1.69</Weight>
+			<MemorySize>
+			8</MemorySize>
+			<image href="l2" />
+		</Product>
+		<Product Category="laptop" productId="l3">
+			<Maker nameRef="Apple" idRef="maker4" />
+			<Model>MacBook Air 13.6</Model>
+			<Price>2943.24</Price>
+			<Weight>
+			1.24</Weight>
+			<MemorySize>8</MemorySize>
+			<image href="l3" />
+		</Product>
+
+		<Product Category="computer" productId="c1">
+			<Maker nameRef="Lenovo" idRef="maker3" />
+			<Model>ThinkCentre Neo 50s</Model>
+			<Price>1188.72</Price>
+			<HardDisk>
+			512</HardDisk>
+			<NumUSBPorts>7</NumUSBPorts>
+			<image href="c1" />
+		</Product>
+		<Product Category="computer" productId="c2">
+			<Maker nameRef="Dell" idRef="maker2" />
+			<Model>Vostro Desktop 3910</Model>
+			<Price>1468.19</Price>
+			<HardDisk>
+			1000</HardDisk>
+			<NumUSBPorts>8</NumUSBPorts>
+			<image href="c2" />
+		</Product>
+
+		<Product Category="monitor" productId="m1">
+			<Maker nameRef="Asus" idRef="maker1" />
+			<Model>VZ24EHE</Model>
+			<Price>269.64</Price>
+			<DiagonalSize>
+			23.8</DiagonalSize> <!--inch-->
+			<AspectRatio>16:9</AspectRatio>
+			<image href="m1" />
+		</Product>
+		<Product Category="monitor" productId="m2">
+			<Maker nameRef="Lenovo" idRef="maker3" />
+			<Model>ThinkVision S22e-20</Model>
+			<Price>262.32</Price>
+			<DiagonalSize>
+			21.5</DiagonalSize>
+			<AspectRatio>16:9</AspectRatio>
+			<image href="m2" />
+		</Product>
+
+		<Product Category="mouse" productId="mo1">
+			<Maker nameRef="Acer" idRef="maker5" />
+			<Model>Centus 330</Model>
+			<Price>99.36</Price>
+			<Buttons>7</Buttons>
+			<MovementResolusion>
+			16000</MovementResolusion> <!--dpi-->
+			<image href="mo1" />
+		</Product>
+	</ITProducts>
+</Catalog>
